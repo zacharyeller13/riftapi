@@ -1,7 +1,5 @@
-# 
-
-## high-level Mach client wrapper for [rift-wm](https://github.com/acsandmann/rift)
-
+# riftapi
+> ## high-level Mach client wrapper for [rift-wm](https://github.com/acsandmann/rift)
 > based on [acsandmann/rift.lua](https://github.com/acsandmann/rift.lua) 
 
 add to `sketchybarrc` or wherever you use it:
