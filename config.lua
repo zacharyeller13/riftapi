@@ -14,11 +14,11 @@ end
 ---@return boolean|nil
 ---@return string|nil
 function M.config.save()
-	return M.execute('{"Config":"save_config"}')
+	return M.execute('{"Config":"save_config"}', { "__apply_config__", M._json_str("save_config") })
 end
 
 ---@return boolean|nil
 ---@return string|nil
 function M.config.reload()
-	return M.execute('{"Config":"reload_config"}')
+	return M.execute('{"Config":"reload_config"}', { "__apply_config__", M._json_str("reload_config") })
 end
