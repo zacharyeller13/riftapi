@@ -1,21 +1,31 @@
+local dkjson = require("riftapi.lib.dkjson")
+local M = {}
+
+---@param s string
+---@return string
 function M._json_str(s)
-    return string.format("%q", tostring(s))
+    return dkjson.encode(s) --[[@as string]]
 end
 
+---@param strings string[]|nil
+---@return string
 function M._json_arr(strings)
-    if not strings or #strings == 0 then return "[]" end
-    local t = {}
-    for _, v in ipairs(strings) do
-        table.insert(t, M._json_str(v))
-    end
-    return "[" .. table.concat(t, ",") .. "]"
+    return dkjson.encode(strings or {}) --[[@as string]]
 end
 
+---@param v integer|nil
+---@return integer|"null"
 function M._json_opt_int(v)
-    return v ~= nil and tostring(v) or "null"
+    return v or "null"
 end
 
+---@param v boolean|nil
+---@return string
 function M._json_opt_bool(v)
-    if v == nil then return "null" end
-    return v and "true" or "false"
+    return dkjson.encode(v) --[[@as string]]
 end
+
+M.encode = dkjson.encode
+M.decode = dkjson.decode
+
+return M

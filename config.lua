@@ -6,19 +6,19 @@ M.config = {}
 ---@return boolean|nil
 ---@return string|nil
 function M.config.set(key, value_json)
-	local cmd = string.format('{"set":{"key":%s,"value":%s}}', M._json_str(key), value_json)
-	local config_cmd = string.format('{"Config":%s}', cmd)
-	return M.execute(config_cmd, { "__apply_config__", cmd })
+    local cmd = string.format('{"set":{"key":%s,"value":%s}}', M.json._json_str(key), value_json)
+    local config_cmd = string.format('{"Config":%s}', cmd)
+    return M.execute(config_cmd, { "__apply_config__", cmd })
 end
 
 ---@return boolean|nil
 ---@return string|nil
 function M.config.save()
-	return M.execute('{"Config":"save_config"}', { "__apply_config__", M._json_str("save_config") })
+    return M.execute('{"Config":"save_config"}', { "__apply_config__", M.json._json_str("save_config") })
 end
 
 ---@return boolean|nil
 ---@return string|nil
 function M.config.reload()
-	return M.execute('{"Config":"reload_config"}', { "__apply_config__", M._json_str("reload_config") })
+    return M.execute('{"Config":"reload_config"}', { "__apply_config__", M.json._json_str("reload_config") })
 end
