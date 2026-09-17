@@ -72,7 +72,8 @@ end
 ---@param args? string[]
 ---@return boolean|nil
 ---@return string|nil
-function M.execute(command, args)
+---@deprecated Use typesafe payloads with execute
+function M.execute_legacy(command, args)
     local p = string.format(
         '{"execute_command":{"command":%s,"args":%s}}',
         M.json._json_str(command),
@@ -83,4 +84,17 @@ function M.execute(command, args)
         return nil, err
     end
     return true
+end
+
+---send an `execute_command` request
+---@param command RiftCommand must be a json-serializable RiftCommand table
+---@return boolean|nil
+---@return string|nil
+function M.execute(command)
+    local p = M.json.encode({ execute_command = { command = command } }) --[[@as string]]
+    local data, err = M.request(p)
+    if not data then
+        return nil, err
+    end
+    return true, data
 end

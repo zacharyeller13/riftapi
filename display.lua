@@ -17,7 +17,7 @@ function M.display.focus(direction, index, uuid)
         return nil, "display.focus requires direction, index, or uuid"
     end
     local cmd = string.format('{"Reactor":{"focus_display":%s}}', sel)
-    return M.execute(cmd)
+    return M.execute_legacy(cmd)
 end
 
 ---@param index integer
@@ -25,7 +25,7 @@ end
 ---@return string|nil
 function M.display.move_mouse_to_index(index)
     local cmd = string.format('{"Reactor":{"move_mouse_to_display":{"index":%d}}}', index)
-    return M.execute(cmd)
+    return M.execute_legacy(cmd)
 end
 
 ---@param uuid string
@@ -33,7 +33,7 @@ end
 ---@return string|nil
 function M.display.move_mouse_to_uuid(uuid)
     local cmd = string.format('{"Reactor":{"move_mouse_to_display":{"uuid":%s}}}', M.json._json_str(uuid))
-    return M.execute(cmd)
+    return M.execute_legacy(cmd)
 end
 
 ---@param direction? "left"|"right"|"up"|"down"
@@ -55,5 +55,5 @@ function M.display.move_window(direction, index, uuid, window_id)
     end
     local wid = window_id ~= nil and string.format(',"window_id":%d', window_id) or ""
     local cmd = string.format('{"Reactor":{"move_window_to_display":{"selector":%s%s}}}', sel, wid)
-    return M.execute(cmd)
+    return M.execute_legacy(cmd)
 end
