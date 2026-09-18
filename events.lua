@@ -4,8 +4,10 @@
 ---@return boolean|nil
 ---@return string|nil
 function M.subscribe(events, callback)
-    local c, err = M._connect()
-    if not c then return nil, err end
+    local c, err = M.get_client()
+    if not c then
+        return nil, err
+    end
     return c:subscribe(events, callback)
 end
 
@@ -14,7 +16,9 @@ end
 ---@return boolean|nil
 ---@return string|nil
 function M.unsubscribe(event)
-    local c, err = M._connect()
-    if not c then return nil, err end
+    local c, err = M.get_client()
+    if not c then
+        return nil, err
+    end
     return c:unsubscribe(event)
 end
