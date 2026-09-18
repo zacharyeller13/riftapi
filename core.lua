@@ -87,6 +87,8 @@ function M.execute_legacy(command, args)
 end
 
 ---send an `execute_command` request
+---on success, return will be true, nil
+---on failure, return will be nil, err
 ---@param command RiftCommand must be a json-serializable RiftCommand table
 ---@return boolean|nil
 ---@return string|nil
@@ -96,5 +98,5 @@ function M.execute(command)
     if not data then
         return nil, err
     end
-    return true, data
+    return true
 end
