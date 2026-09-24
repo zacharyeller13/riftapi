@@ -1,24 +1,31 @@
 M.config = {}
 
----set arbitrary config key
----@param key string dot-separated path
----@param value_json string must be valid JSON; e.g. "true", "1.5", "\"str\""
----@return boolean|nil
----@return string|nil
-function M.config.set(key, value_json)
-    local cmd = string.format('{"set":{"key":%s,"value":%s}}', M.json._json_str(key), value_json)
-    local config_cmd = string.format('{"Config":%s}', cmd)
-    return M.execute_legacy(config_cmd, { "__apply_config__", cmd })
+---Serialize the config to the rift logs (does not return it to the client)
+function M.config.get()
+    local cmd = { config = "get_config" }
+    return M.execute(cmd)
 end
 
+---set arbitrary config key
+---@param key string dot-separated path
+---@param value any any JSON-serializable value including json.null
+---@return boolean|nil
+---@return string|nil
+function M.config.set(key, value)
+    local cmd = { config = { set = { key = key, value = value } } }
+    return M.execute(cmd)
+end
+
+---Save the current config to file
 ---@return boolean|nil
 ---@return string|nil
 function M.config.save()
-    return M.execute_legacy('{"Config":"save_config"}', { "__apply_config__", M.json._json_str("save_config") })
+    return M.execute({ config = "save_config" })
 end
 
+---Reload the config from file
 ---@return boolean|nil
 ---@return string|nil
 function M.config.reload()
-    return M.execute_legacy('{"Config":"reload_config"}', { "__apply_config__", M.json._json_str("reload_config") })
+    return M.execute({ config = "reload_config" })
 end
