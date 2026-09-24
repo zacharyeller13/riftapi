@@ -13,4 +13,5 @@ require("riftapi.mission_control")
 require("riftapi.config")
 require("riftapi.reactor")
 require("riftapi.events")
+require("riftapi.metrics")
 return M
