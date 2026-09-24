@@ -3,108 +3,108 @@ M.layout = {}
 ---@return boolean|nil
 ---@return string|nil
 function M.layout.ascend()
-    return M.execute_legacy('{"Reactor":"ascend"}')
+    return M.execute({ layout = "ascend" })
 end
 
 ---@return boolean|nil
 ---@return string|nil
 function M.layout.descend()
-    return M.execute_legacy('{"Reactor":"descend"}')
+    return M.execute({ layout = "descend" })
 end
 
 ---@param direction "left"|"right"|"up"|"down"
 ---@return boolean|nil
 ---@return string|nil
 function M.layout.move_node(direction)
-    local cmd = string.format('{"Reactor":{"move_node":%s}}', M.json._json_str(direction))
-    return M.execute_legacy(cmd)
+    local cmd = { layout = { move_node = direction } }
+    return M.execute(cmd)
 end
 
 ---@param direction "left"|"right"|"up"|"down"
 ---@return boolean|nil
 ---@return string|nil
 function M.layout.join_window(direction)
-    local cmd = string.format('{"Reactor":{"join_window":%s}}', M.json._json_str(direction))
-    return M.execute_legacy(cmd)
+    local cmd = { layout = { join_window = direction } }
+    return M.execute(cmd)
 end
 
 ---@return boolean|nil
 ---@return string|nil
 function M.layout.toggle_stack()
-    return M.execute_legacy('{"Reactor":"toggle_stack"}')
+    return M.execute({ layout = "toggle_stack" })
 end
 
 ---@return boolean|nil
 ---@return string|nil
 function M.layout.toggle_orientation()
-    return M.execute_legacy('{"Reactor":"toggle_orientation"}')
+    return M.execute({ layout = "toggle_orientation" })
 end
 
 ---@return boolean|nil
 ---@return string|nil
 function M.layout.unjoin()
-    return M.execute_legacy('{"Reactor":"unjoin_windows"}')
+    return M.execute({ layout = "unjoin_windows" })
 end
 
 ---@return boolean|nil
 ---@return string|nil
 function M.layout.toggle_focus_float()
-    return M.execute_legacy('{"Reactor":"toggle_focus_floating"}')
+    return M.execute({ layout = "toggle_focus_floating" })
 end
 
 ---@param delta number
 ---@return boolean|nil
 ---@return string|nil
 function M.layout.adjust_master_ratio(delta)
-    local cmd = string.format('{"Reactor":{"adjust_master_ratio":{"delta":%.6f}}}', delta)
-    return M.execute_legacy(cmd)
+    local cmd = { layout = { adjust_master_ratio = delta } }
+    return M.execute(cmd)
 end
 
 ---@param delta integer
 ---@return boolean|nil
 ---@return string|nil
 function M.layout.adjust_master_count(delta)
-    local cmd = string.format('{"Reactor":{"adjust_master_count":{"delta":%d}}}', delta)
-    return M.execute_legacy(cmd)
+    local cmd = { layout = { adjust_master_count = { delta = delta } } }
+    return M.execute(cmd)
 end
 
 ---@return boolean|nil
 ---@return string|nil
 function M.layout.promote_to_master()
-    return M.execute_legacy('{"Reactor":"promote_to_master"}')
+    return M.execute({ layout = "promote_to_master" })
 end
 
 ---@return boolean|nil
 ---@return string|nil
 function M.layout.swap_master_stack()
-    return M.execute_legacy('{"Reactor":"swap_master_stack"}')
+    return M.execute({ layout = "swap_master_stack" })
 end
 
----@param a string WindowId debug string
----@param b string WindowId debug string
+---@param a { idx: integer, pid: integer } e.g. `{ pid: 123, idx: 456 }`
+---@param b { idx: integer, pid: integer } e.g. `{ pid: 123, idx: 456 }`
 ---@return boolean|nil
 ---@return string|nil
 function M.layout.swap_windows(a, b)
-    local cmd = string.format('{"Reactor":{"swap_windows":[%s,%s]}}', M.json._json_str(a), M.json._json_str(b))
-    return M.execute_legacy(cmd)
+    local cmd = { layout = { swap_windows = { a, b } } }
+    return M.execute(cmd)
 end
 
 ---@param delta number
 ---@return boolean|nil
 ---@return string|nil
 function M.layout.scroll_strip(delta)
-    local cmd = string.format('{"Reactor":{"scroll_strip":{"delta":%.6f}}}', delta)
-    return M.execute_legacy(cmd)
+    local cmd = { layout = { scroll_strip = { delta = delta } } }
+    return M.execute(cmd)
 end
 
 ---@return boolean|nil
 ---@return string|nil
 function M.layout.snap_strip()
-    return M.execute_legacy('{"Reactor":"snap_strip"}')
+    return M.execute({ layout = "snap_strip" })
 end
 
 ---@return boolean|nil
 ---@return string|nil
 function M.layout.center_selection()
-    return M.execute_legacy('{"Reactor":"center_selection"}')
+    return M.execute({ layout = "center_selection" })
 end
