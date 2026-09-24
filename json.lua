@@ -8,12 +8,6 @@ M.decode = dkjson.decode
 ---@type JsonNull
 M.null = dkjson.null
 
----@param s string
----@return string
-function M._json_str(s)
-    return M.encode(s) --[[@as string]]
-end
-
 ---@param strings? string[]
 ---@return string
 function M._json_arr(strings)
