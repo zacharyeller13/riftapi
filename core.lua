@@ -68,16 +68,13 @@ function M.request(json_payload, await)
 end
 
 ---send an `execute_command` request
----@param command string must be a json-serialized RiftCommand string.
----@param args? string[]
+---on success, return will be true, nil
+---on failure, return will be nil, err
+---@param command RiftCommand must be a json-serializable RiftCommand table
 ---@return boolean|nil
 ---@return string|nil
-function M.execute(command, args)
-    local p = string.format(
-        '{"execute_command":{"command":%s,"args":%s}}',
-        M.json._json_str(command),
-        M.json._json_arr(args or {})
-    )
+function M.execute(command)
+    local p = M.json.encode({ execute_command = { command = command } }) --[[@as string]]
     local data, err = M.request(p)
     if not data then
         return nil, err

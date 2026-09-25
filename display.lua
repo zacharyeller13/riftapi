@@ -6,17 +6,11 @@ M.display = {}
 ---@return boolean|nil
 ---@return string|nil
 function M.display.focus(direction, index, uuid)
-    local sel
-    if direction then
-        sel = string.format('{"direction":%s}', M.json._json_str(direction))
-    elseif index then
-        sel = string.format('{"index":%d}', index)
-    elseif uuid then
-        sel = string.format('{"uuid":%s}', M.json._json_str(uuid))
-    else
+    if not direction and not index and not uuid then
         return nil, "display.focus requires direction, index, or uuid"
     end
-    local cmd = string.format('{"Reactor":{"focus_display":%s}}', sel)
+    -- DisplaySelector is an untagged union of Direction|Index|Uuid
+    local cmd = { reactor = { focus_display = direction or index or uuid } }
     return M.execute(cmd)
 end
 
@@ -24,7 +18,8 @@ end
 ---@return boolean|nil
 ---@return string|nil
 function M.display.move_mouse_to_index(index)
-    local cmd = string.format('{"Reactor":{"move_mouse_to_display":{"index":%d}}}', index)
+    -- DisplaySelector is an untagged union of Direction|Index|Uuid
+    local cmd = { reactor = { move_mouse_to_display = index } }
     return M.execute(cmd)
 end
 
@@ -32,7 +27,7 @@ end
 ---@return boolean|nil
 ---@return string|nil
 function M.display.move_mouse_to_uuid(uuid)
-    local cmd = string.format('{"Reactor":{"move_mouse_to_display":{"uuid":%s}}}', M.json._json_str(uuid))
+    local cmd = { reactor = { move_mouse_to_display = uuid } }
     return M.execute(cmd)
 end
 
@@ -43,17 +38,10 @@ end
 ---@return boolean|nil
 ---@return string|nil
 function M.display.move_window(direction, index, uuid, window_id)
-    local sel
-    if direction then
-        sel = string.format('{"direction":%s}', M.json._json_str(direction))
-    elseif index then
-        sel = string.format('{"index":%d}', index)
-    elseif uuid then
-        sel = string.format('{"uuid":%s}', M.json._json_str(uuid))
-    else
+    if not direction and not index and not uuid then
         return nil, "display.move_window requires direction, index, or uuid"
     end
-    local wid = window_id ~= nil and string.format(',"window_id":%d', window_id) or ""
-    local cmd = string.format('{"Reactor":{"move_window_to_display":{"selector":%s%s}}}', sel, wid)
+    local cmd =
+        { reactor = { move_window_to_display = { selector = direction or index or uuid, window_id = window_id } } }
     return M.execute(cmd)
 end
