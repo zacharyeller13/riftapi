@@ -52,10 +52,15 @@ describe("Test query commands #query #needsrift", function()
     end)
     describe("Test query.window_info", function()
         it("executes successfully", function()
-            ---@diagnostic disable-next-line: missing-parameter
-            pending("tbd, requires us to get a valid window_id first")
-            local windows, err = rift.query.window_info({ idx = 0, pid = 0 })
+            --WARN: this is brittle but should work
+            --the terminal from which we execute busted will count as a window
+            local windows, err = rift.query.windows()
             assert.truthy(windows)
+            assert.is_nil(err)
+            local win_id = windows[1].id --[[@as {pid: integer, idx: integer}]]
+
+            local window, err = rift.query.window_info(win_id)
+            assert.truthy(window)
             assert.is_nil(err)
         end)
     end)
