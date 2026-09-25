@@ -47,3 +47,5 @@
 ---@class RiftConfig
 ---@field settings    table|nil
 ---@field keybindings table|nil
+
+---@alias RiftCommand table<string,any>
