@@ -2,7 +2,7 @@ Rift = require("rift")
 
 ---@class RiftAPI
 M = {}
-require("riftapi.json")
+M.json = require("riftapi.json")
 require("riftapi.core")
 require("riftapi.query")
 require("riftapi.workspace")
