@@ -27,6 +27,8 @@ describe("Test reactor commands #reactor #needsrift", function()
             local ok, err = rift.toggle_space_activated()
             assert.is_true(ok)
             assert.is_nil(err)
+            -- make sure to return the activated state to what it was before
+            rift.toggle_space_activated()
         end)
     end)
 end)
