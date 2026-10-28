@@ -20,6 +20,7 @@
 ---@field id          integer|nil
 ---@field name        string|nil
 ---@field is_active   boolean
+---@field is_focused   boolean
 ---@field layout_mode string|nil
 ---@field windows     RiftWindow[]|nil
 
