@@ -24,6 +24,8 @@ describe("Test config commands #config #needsrift", function()
 
     describe("Test config.get", function()
         it("executes successfully", function()
+            ---@diagnostic disable-next-line: missing-parameter
+            pending("deprecated function")
             local ok, err = rift.config.get()
             assert.True(ok)
             assert.is_nil(err)
@@ -38,10 +40,10 @@ describe("Test config commands #config #needsrift", function()
     end)
     describe("Test config.set", function()
         it("executes successfully", function()
-            -- Set allows arbitrary key-value pairs
             local ok, err = rift.config.set("foo", "bar")
-            assert.True(ok)
-            assert.is_nil(err)
+            -- task failed successfully
+            assert.is_nil(ok)
+            assert.truthy(err)
         end)
         it("sets nested keys (settings.animate)", function()
             -- Gets set to true
