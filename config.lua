@@ -1,12 +1,13 @@
 M.config = {}
 
 ---Serialize the config to the rift logs (does not return it to the client)
+---@deprecated This will just return `true, nil`, use `Rift.query.config()`
 function M.config.get()
     local cmd = { config = "get_config" }
     return M.execute(cmd)
 end
 
----set arbitrary config key
+---set a known config key
 ---@param key string dot-separated path
 ---@param value any any JSON-serializable value including json.null
 ---@return boolean|nil
